@@ -35,14 +35,24 @@ function Profile() {
     marginTop: "1rem",
   };
 
-  const badgeCardStyle = {
-    backgroundColor: "#f8f9fa",
+  const badgeCardStyle = (locked) => ({
+    backgroundColor: locked ? "#f0f0f0" : "#f8f9fa",
     border: "1px solid #ccc",
     borderRadius: "8px",
     padding: "1rem",
     textAlign: "center",
     boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-  };
+    opacity: locked ? 0.5 : 1,
+  });
+
+  // Define all possible badges
+  const allBadges = [
+    "Lesson Starter",
+    "Lesson Explorer",
+    "Financial Explorer",
+    "Challenge Beginner",
+    "Challenge Champion",
+  ];
 
   return (
     <div>
@@ -62,19 +72,19 @@ function Profile() {
         </div>
       </ul>
 
-      <h3>Badges Earned</h3>
-      {badges.length > 0 ? (
-        <div style={badgeGridStyle}>
-          {badges.map((badge, index) => (
-            <div key={index} style={badgeCardStyle}>
-              <span style={{ fontSize: "2rem" }}>🏅</span>
+      <h3>Badges Showcase</h3>
+      <div style={badgeGridStyle}>
+        {allBadges.map((badge, index) => {
+          const earned = badges.includes(badge);
+          return (
+            <div key={index} style={badgeCardStyle(!earned)}>
+              <span style={{ fontSize: "2rem" }}>{earned ? "🏅" : "🔒"}</span>
               <p><strong>{badge}</strong></p>
+              {!earned && <p style={{ fontSize: "0.8rem", color: "#666" }}>Locked</p>}
             </div>
-          ))}
-        </div>
-      ) : (
-        <p>No badges yet — keep learning!</p>
-      )}
+          );
+        })}
+      </div>
 
       <NudgeNotification
         message="Stay consistent! Completing more lessons unlocks new badges."
