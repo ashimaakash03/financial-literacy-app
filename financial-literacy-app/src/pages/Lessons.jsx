@@ -1,26 +1,16 @@
 // src/pages/Lessons.jsx
-import React from "react";
+import React, { useContext } from "react";
 import LessonCard from "../components/LessonCard";
+import { GlobalContext } from "../context/GlobalState";
 
 function Lessons() {
-  const lessons = [
-    {
-      title: "Budgeting Basics",
-      description: "Learn how to track your expenses and set savings goals.",
-    },
-    {
-      title: "Understanding Credit",
-      description: "Discover how credit scores work and how to build good credit.",
-    },
-    {
-      title: "Saving Strategies",
-      description: "Explore different ways to save money effectively.",
-    },
-  ];
+  const { markLessonComplete } = useContext(GlobalContext);
 
-  const handleComplete = (title) => {
-    alert(`Lesson "${title}" marked as complete!`);
-  };
+  const lessons = [
+    { title: "Budgeting Basics", description: "Track expenses and set goals." },
+    { title: "Understanding Credit", description: "Learn about credit scores." },
+    { title: "Saving Strategies", description: "Explore saving methods." },
+  ];
 
   return (
     <div>
@@ -32,7 +22,7 @@ function Lessons() {
           key={index}
           title={lesson.title}
           description={lesson.description}
-          onComplete={() => handleComplete(lesson.title)}
+          onComplete={() => markLessonComplete(lesson.title)}
         />
       ))}
     </div>
