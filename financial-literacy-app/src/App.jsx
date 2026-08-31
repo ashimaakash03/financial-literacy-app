@@ -4,6 +4,7 @@ import Lessons from './pages/Lessons'
 import Challenges from './pages/Challenges'
 import Profile from './pages/Profile'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/challenges" element={<Challenges />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
+      <Footer/>
     </Router>
   )
 }
