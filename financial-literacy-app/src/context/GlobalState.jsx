@@ -8,18 +8,32 @@ export function GlobalProvider({ children }) {
   const [completedChallenges, setCompletedChallenges] = useState([]);
   const [badges, setBadges] = useState([]);
 
+  const addBadge = (badgeName) => {
+    if (!badges.includes(badgeName)) {
+      setBadges([...badges, badgeName]);
+    }
+  };
+
   const markLessonComplete = (lessonTitle) => {
     if (!completedLessons.includes(lessonTitle)) {
-      setCompletedLessons([...completedLessons, lessonTitle]);
-      if (completedLessons.length + 1 === 3) {
-        setBadges([...badges, "Financial Explorer"]);
-      }
+      const newLessons = [...completedLessons, lessonTitle];
+      setCompletedLessons(newLessons);
+
+      // Award badges incrementally
+      if (newLessons.length === 1) addBadge("Lesson Starter");
+      if (newLessons.length === 2) addBadge("Lesson Explorer");
+      if (newLessons.length === 3) addBadge("Financial Explorer");
     }
   };
 
   const markChallengeComplete = (challengeName) => {
     if (!completedChallenges.includes(challengeName)) {
-      setCompletedChallenges([...completedChallenges, challengeName]);
+      const newChallenges = [...completedChallenges, challengeName];
+      setCompletedChallenges(newChallenges);
+
+      // Award badges incrementally
+      if (newChallenges.length === 1) addBadge("Challenge Beginner");
+      if (newChallenges.length === 2) addBadge("Challenge Champion");
     }
   };
 
