@@ -12,6 +12,11 @@ function Lessons() {
     { title: "Saving Strategies", description: "Explore saving methods." },
   ];
 
+  const handleComplete = (title) => {
+    markLessonComplete(title);
+    alert(`Lesson "${title}" marked as complete!`);
+  };
+
   return (
     <div>
       <h1>Lessons</h1>
@@ -22,7 +27,7 @@ function Lessons() {
           key={index}
           title={lesson.title}
           description={lesson.description}
-          onComplete={() => markLessonComplete(lesson.title)}
+          onComplete={() => handleComplete(lesson.title)}
         />
       ))}
     </div>
