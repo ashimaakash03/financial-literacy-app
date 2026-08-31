@@ -2,6 +2,7 @@
 import React from "react";
 import LessonCard from "../components/LessonCard";
 import BudgetChallenge from "../components/BudgetChallenge";
+import InvestmentSimulator from "../components/InvestmentSimulator";
 
 function Dashboard() {
   const handleComplete = () => {
@@ -20,6 +21,7 @@ function Dashboard() {
       />
 
       <BudgetChallenge />
+      <InvestmentSimulator/>
     </div>
   );
 }
