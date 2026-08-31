@@ -1,7 +1,7 @@
 // src/pages/Lessons.jsx
 import React, { useContext } from "react";
-import LessonCard from "../components/LessonCard";
 import { GlobalContext } from "../context/GlobalState";
+import { Card, CardContent, Typography, Button, Grid } from "@mui/material";
 
 function Lessons() {
   const { markLessonComplete } = useContext(GlobalContext);
@@ -14,22 +14,39 @@ function Lessons() {
 
   const handleComplete = (title) => {
     markLessonComplete(title);
-    alert(`Lesson "${title}" marked as complete!`);
+    alert(`✅ Lesson "${title}" marked as complete!`);
   };
 
   return (
-    <div>
-      <h1>Lessons</h1>
-      <p>Browse and complete bite-sized financial literacy lessons:</p>
+    <div style={{ padding: "2rem" }}>
+      <Typography variant="h4" gutterBottom>
+        Lessons
+      </Typography>
+      <Typography variant="body1" color="textSecondary" gutterBottom>
+        Browse and complete bite-sized financial literacy lessons:
+      </Typography>
 
-      {lessons.map((lesson, index) => (
-        <LessonCard
-          key={index}
-          title={lesson.title}
-          description={lesson.description}
-          onComplete={() => handleComplete(lesson.title)}
-        />
-      ))}
+      <Grid container spacing={3}>
+        {lessons.map((lesson, index) => (
+          <Grid item xs={12} md={6} key={index}>
+            <Card elevation={3}>
+              <CardContent>
+                <Typography variant="h6">{lesson.title}</Typography>
+                <Typography variant="body2" color="textSecondary" gutterBottom>
+                  {lesson.description}
+                </Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleComplete(lesson.title)}
+                >
+                  Mark as Complete
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 }
