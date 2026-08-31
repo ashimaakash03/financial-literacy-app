@@ -6,6 +6,30 @@ import NudgeNotification from "../components/NudgeNotification";
 function Profile() {
   const { completedLessons, completedChallenges, badges } = useContext(GlobalContext);
 
+  // Assume we currently have 3 lessons and 2 challenges total
+  const totalLessons = 3;
+  const totalChallenges = 2;
+
+  const lessonProgress = (completedLessons.length / totalLessons) * 100;
+  const challengeProgress = (completedChallenges.length / totalChallenges) * 100;
+
+  const progressBarStyle = (percent, color) => ({
+    width: "100%",
+    backgroundColor: "#e0e0e0",
+    borderRadius: "5px",
+    marginBottom: "1rem",
+    overflow: "hidden",
+    height: "20px",
+    position: "relative",
+  });
+
+  const fillStyle = (percent, color) => ({
+    width: `${percent}%`,
+    backgroundColor: color,
+    height: "100%",
+    transition: "width 0.5s ease",
+  });
+
   return (
     <div>
       <h1>Profile</h1>
@@ -13,8 +37,15 @@ function Profile() {
 
       <h3>Progress Overview</h3>
       <ul>
-        <li>Lessons Completed: {completedLessons.length}</li>
-        <li>Challenges Completed: {completedChallenges.length}</li>
+        <li>Lessons Completed: {completedLessons.length} / {totalLessons}</li>
+        <div style={progressBarStyle(lessonProgress, "#4caf50")}>
+          <div style={fillStyle(lessonProgress, "#4caf50")}></div>
+        </div>
+
+        <li>Challenges Completed: {completedChallenges.length} / {totalChallenges}</li>
+        <div style={progressBarStyle(challengeProgress, "#2196f3")}>
+          <div style={fillStyle(challengeProgress, "#2196f3")}></div>
+        </div>
       </ul>
 
       <h3>Badges Earned</h3>
